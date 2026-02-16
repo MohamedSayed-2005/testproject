@@ -80,7 +80,7 @@ export default function MicrobiomePage() {
   const getPCAScatterData = () => {
     if (!pcaData) return [];
 
-    const diseaseGroups = [...new Set(pcaData.labels)];
+    const diseaseGroups = [...new Set(pcaData.labels)] as string[];
     const traces = diseaseGroups.map((disease: string, idx: number) => {
       const indices = pcaData.labels
         .map((label: string, i: number) => (label === disease ? i : -1))

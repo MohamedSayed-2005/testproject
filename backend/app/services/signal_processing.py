@@ -33,7 +33,10 @@ def generate_synthetic_ecg(duration: float = 10.0, sampling_rate: int = 500, num
         beat_period = 1.0 / heart_rate
         for i in range(int(duration * heart_rate)):
             peak_time = i * beat_period
-            qrs_complex += 1.5 * signal.gaussian(num_samples, std=sampling_rate*0.02) * \
+            # Use gaussian function from scipy.signal.windows
+            from scipy.signal.windows import gaussian
+            gauss_window = gaussian(num_samples, std=sampling_rate*0.02)
+            qrs_complex += 1.5 * gauss_window * \
                           np.roll(np.eye(1, num_samples)[0], int(peak_time * sampling_rate))
         
         # T wave
